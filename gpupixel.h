@@ -95,13 +95,18 @@ extern "C" {
         std::shared_ptr<SourceImage> gpuSourceImage;
         // beauty filter
         std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
+        std::shared_ptr<TargetView> target_view;
 
 
         // Create filter
         gpuSourceImage = SourceImage::create(image_path);
         // Face Beauty Filter
         beauty_face_filter_ = BeautyFaceFilter::create();
+        target_view = std::make_shared<TargetView>();
 
+        // gpuSourceImage->addTarget(beauty_face_filter_)
+        //             ->addTarget(target_view); 
+        gpuSourceImage->addTarget(target_view); 
         return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_);
 
     }

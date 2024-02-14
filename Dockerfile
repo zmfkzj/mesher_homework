@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:jammy AS base
 
 
 USER root
@@ -11,7 +11,10 @@ RUN apt-get install -y cmake pkg-config mesa-utils libglu1-mesa-dev freeglut3-de
     git g++ python3-pip && \
     apt-get clean
 
-ONBUILD RUN git clone --recurse-submodules https://github.com/zmfkzj/mesher_homework.git
+
+FROM base AS pkg
+
+RUN git clone --recurse-submodules https://github.com/zmfkzj/mesher_homework.git
 
 ### gpupixel build
 
