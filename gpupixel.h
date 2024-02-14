@@ -91,7 +91,9 @@ USING_NS_GPUPIXEL
 
 extern "C" {
     void* createSourceImage(const char* image_path) {
+        printf(image_path);
         std::string path(image_path);
+        printf(path);
         // image data input
         std::shared_ptr<SourceImage> gpuSourceImage;
         // beauty filter
@@ -100,7 +102,7 @@ extern "C" {
 
 
         // Create filter
-        gpuSourceImage = SourceImage::create(image_path);
+        gpuSourceImage = SourceImage::create(path);
         printf("#1");
         // Face Beauty Filter
         beauty_face_filter_ = BeautyFaceFilter::create();
