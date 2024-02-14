@@ -89,32 +89,43 @@
 
 USING_NS_GPUPIXEL
 
-// image data input
-std::shared_ptr<SourceImage> gpuSourceImage;
-// beauty filter
-std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
-std::shared_ptr<TargetView> target_view;
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 
 extern "C" {
-    void* createSourceImage(const char* image_path) {
-        printf(image_path);
-        printf("\n");
-        std::string path(image_path);
+    void* createSourceImage(const unsigned char* bytes, int width, int height) {
+        // video data input
+        std::shared_ptr<SourceRawDataInput> source_raw_input_;
+        // beauty filter
+        std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
+        // video data output 
+        std::shared_ptr<TargetRawDataOutput> target_raw_output_;
+    
+        stbi_write_jpg("input.jpg", width, height, 3, bytes, 1);
 
+        gpupixel::GPUPixelContext::getInstance()->runSync([&] {
+            // Create filter
+            source_raw_input_ = SourceRawDataInput::create();
+            target_raw_output_ = TargetRawDataOutput::create();
+            // Face Beauty Filter
+            beauty_face_filter_ = BeautyFaceFilter::create();
+            
+            // Add filter
+            source_raw_input_->addTarget(beauty_face_filter_)
+                            ->addTarget(target_raw_output_);
 
-        // Create filter
-        gpuSourceImage = SourceImage::create(path);
-        printf("#1\n");
-        // Face Beauty Filter
-        beauty_face_filter_ = BeautyFaceFilter::create();
-        printf("#2\n");
-        target_view = std::make_shared<TargetView>();
-        printf("#3\n");
-
-        // gpuSourceImage->addTarget(beauty_face_filter_)
-        //             ->addTarget(target_view); 
-        // gpuSourceImage->addTarget(target_view); 
-        return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_);
-
+            target_raw_output_->setPixelsCallbck([=](const uint8_t *data, 
+                                                    int width, 
+                                                    int height, 
+                                                    int64_t ts) {
+                stbi_write_png("result.png", width, height, 4, data, width * 4);
+            });
+            source_raw_input_->uploadBytes(bytes,
+                                            width, 
+                                            height, 
+                                            width);
+            // source_raw_input_->proceed();
+        });
     }
 }
