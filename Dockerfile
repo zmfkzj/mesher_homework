@@ -14,6 +14,8 @@ RUN apt-get install -y cmake pkg-config mesa-utils libglu1-mesa-dev freeglut3-de
 RUN git clone --recurse-submodules https://github.com/zmfkzj/mesher_homework.git
 
 ### gpupixel build
+
+RUN mv /mesher_homework/gpupixel.h /mesher_homework/gpupixel/src/core/gpupixel.h
 # start build
 RUN mkdir /mesher_homework/gpupixel/src/build 
 WORKDIR /mesher_homework/gpupixel/src/build

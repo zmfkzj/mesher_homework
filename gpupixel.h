@@ -86,7 +86,9 @@
 #include "weak_pixel_inclusion_filter.h"
 #include "white_balance_filter.h"
 
-
+#include "source/source_image.h"
+#include "filter/beauty_face_filter.h"
+#include "target/target_raw_data_output.h"
 
 extern "C" {
     // SourceImage 인스턴스를 생성하는 함수
