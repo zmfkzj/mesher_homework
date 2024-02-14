@@ -90,7 +90,7 @@
 USING_NS_GPUPIXEL
 
 extern "C" {
-    void* createSourceImage(const char* image_path) {
+    void* createSourceImage(const std::string image_path) {
         // image data input
         std::shared_ptr<SourceImage> gpuSourceImage;
         // beauty filter
