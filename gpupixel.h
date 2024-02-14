@@ -106,7 +106,7 @@ extern "C" {
 
         // gpuSourceImage->addTarget(beauty_face_filter_)
         //             ->addTarget(target_view); 
-        gpuSourceImage->addTarget(target_view); 
+        // gpuSourceImage->addTarget(target_view); 
         return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_);
 
     }
