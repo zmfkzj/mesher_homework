@@ -104,4 +104,5 @@ extern "C" {
 
         return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_)
 
+    }
 }
