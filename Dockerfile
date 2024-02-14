@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS base
+FROM python:3.9.18-slim-bullseye AS base
 
 
 USER root
@@ -19,6 +19,7 @@ RUN git clone --recurse-submodules https://github.com/zmfkzj/mesher_homework.git
 ### gpupixel build
 
 RUN mv /mesher_homework/gpupixel.h /mesher_homework/gpupixel/src/core/gpupixel.h
+RUN mv /mesher_homework/stb_image_write.h /mesher_homework/gpupixel/src/core/stb_image_write.h
 # start build
 RUN mkdir /mesher_homework/gpupixel/src/build 
 WORKDIR /mesher_homework/gpupixel/src/build

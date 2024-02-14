@@ -115,6 +115,7 @@ extern "C" {
             source_raw_input_->addTarget(beauty_face_filter_)
                             ->addTarget(target_raw_output_);
 
+        });
             target_raw_output_->setPixelsCallbck([=](const uint8_t *data, 
                                                     int width, 
                                                     int height, 
@@ -126,6 +127,5 @@ extern "C" {
                                             height, 
                                             width);
             // source_raw_input_->proceed();
-        });
     }
 }
