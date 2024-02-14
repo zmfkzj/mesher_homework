@@ -100,9 +100,12 @@ extern "C" {
 
         // Create filter
         gpuSourceImage = SourceImage::create(image_path);
+        printf("#1");
         // Face Beauty Filter
         beauty_face_filter_ = BeautyFaceFilter::create();
+        printf("#2");
         target_view = std::make_shared<TargetView>();
+        printf("#3");
 
         // gpuSourceImage->addTarget(beauty_face_filter_)
         //             ->addTarget(target_view); 
