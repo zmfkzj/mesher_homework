@@ -89,26 +89,27 @@
 
 USING_NS_GPUPIXEL
 
+// image data input
+std::shared_ptr<SourceImage> gpuSourceImage;
+// beauty filter
+std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
+std::shared_ptr<TargetView> target_view;
+
 extern "C" {
     void* createSourceImage(const char* image_path) {
         printf(image_path);
+        printf("\n");
         std::string path(image_path);
-        printf("#0");
-        // image data input
-        std::shared_ptr<SourceImage> gpuSourceImage;
-        // beauty filter
-        std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
-        std::shared_ptr<TargetView> target_view;
 
 
         // Create filter
         gpuSourceImage = SourceImage::create(path);
-        printf("#1");
+        printf("#1\n");
         // Face Beauty Filter
         beauty_face_filter_ = BeautyFaceFilter::create();
-        printf("#2");
+        printf("#2\n");
         target_view = std::make_shared<TargetView>();
-        printf("#3");
+        printf("#3\n");
 
         // gpuSourceImage->addTarget(beauty_face_filter_)
         //             ->addTarget(target_view); 
