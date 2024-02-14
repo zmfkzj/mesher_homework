@@ -93,7 +93,7 @@ extern "C" {
     void* createSourceImage(const char* image_path) {
         printf(image_path);
         std::string path(image_path);
-        printf(path);
+        printf("#0");
         // image data input
         std::shared_ptr<SourceImage> gpuSourceImage;
         // beauty filter
