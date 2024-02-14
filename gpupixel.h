@@ -90,50 +90,18 @@
 USING_NS_GPUPIXEL
 
 extern "C" {
-    // SourceImage 인스턴스를 생성하는 함수
-    void* createSourceImage() {
-        return new SourceImage();
-    }
-
-    // SourceImage 인스턴스를 삭제하는 함수
-    void deleteSourceImage(void* instance) {
-        delete static_cast<SourceImage*>(instance);
-    }
-
-    // 이미지를 로드하는 함수
-    void loadSourceImage(void* instance, const char* imagePath) {
-        static_cast<SourceImage*>(instance)->loadImage(imagePath);
-    }
+    void* createSourceImage(const char* image_path) {
+        // image data input
+        std::shared_ptr<SourceImage> gpuSourceImage;
+        // beauty filter
+        std::shared_ptr<BeautyFaceFilter> beauty_face_filter_;
 
 
-    // BeautyFaceFilter 인스턴스 생성
-    void* createBeautyFaceFilter() {
-        return new BeautyFaceFilter();
-    }
+        // Create filter
+        gpuSourceImage = SourceImage::create(image_path);
+        // Face Beauty Filter
+        beauty_face_filter_ = BeautyFaceFilter::create();
 
-    // BeautyFaceFilter 인스턴스 삭제
-    void deleteBeautyFaceFilter(void* instance) {
-        delete static_cast<BeautyFaceFilter*>(instance);
-    }
+        return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_)
 
-    // BeautyFaceFilter에 대한 설정 함수 또는 사용법 예시 (가정)
-    void setBeautyLevel(void* instance, float level) {
-        static_cast<BeautyFaceFilter*>(instance)->setLevel(level);
-    }
-
-    // TargetRawDataOutput 인스턴스 생성
-    void* createTargetRawDataOutput() {
-        return new TargetRawDataOutput();
-    }
-
-    // TargetRawDataOutput 인스턴스 삭제
-    void deleteTargetRawDataOutput(void* instance) {
-        delete static_cast<TargetRawDataOutput*>(instance);
-    }
-
-    // TargetRawDataOutput에 데이터를 설정하는 함수 또는 사용법 예시 (가정)
-    void setOutputCallback(void* instance, void(*callback)(const unsigned char*, int, int)) {
-        // 가정: TargetRawDataOutput에 setCallback 메서드가 있다고 가정
-        static_cast<TargetRawDataOutput*>(instance)->setCallback(callback);
-    }
 }
