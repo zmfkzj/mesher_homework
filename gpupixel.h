@@ -102,7 +102,7 @@ extern "C" {
         // Face Beauty Filter
         beauty_face_filter_ = BeautyFaceFilter::create();
 
-        return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_)
+        return gpuSourceImage->captureAProcessedFrameData(beauty_face_filter_);
 
     }
 }
